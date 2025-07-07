@@ -26,11 +26,11 @@ function validateAnswer(answer) {
 
 //make getHumanChoice function that returns the string answer
 function getHumanChoice() {
-	let answer = "none";
+	//use prompt method to get user input
+	let answer = window.prompt("Rock, paper, or scissors?");
 	//keep looping while answer is not valid
 	while(!validateAnswer(answer)) {
-		//use prompt method to get user input
-		answer = window.prompt("rock, paper, or scissors?");
+		answer = window.prompt("Invalid answer. Rock, paper, or scissors?");
 	}
 	return answer;
 }
@@ -45,18 +45,9 @@ function capitalize(word) {
 	return word.replace(firstChar, firstChar.toUpperCase());
 }
 
-//takes in human and computer choice
-function playround(humanChoice, computerChoice) {
+//returns true or false
+function didIWin(humanChoice, computerChoice) {
 	let isWinner;
-	let isTie = false;
-
-	//capitalize the choices first
-	humanChoice = capitalize(humanChoice);
-	computerChoice = capitalize(computerChoice);
-	
-	//Print the moves of both sides
-	console.log(`You chose ${humanChoice} and the CPU chose ${computerChoice}`);
-
 	//check wins
 	if (humanChoice == "Rock" && computerChoice == "Scissors")
 		isWinner = true;
@@ -64,7 +55,7 @@ function playround(humanChoice, computerChoice) {
 		isWinner = true;
 	else if (humanChoice == "Scissors" && computerChoice == "paper")
 		isWinner = true;
-	
+
 	//check losses
 	if (computerChoice == "rock" && humanChoice== "scissors")
 		isWinner = false;
@@ -73,31 +64,77 @@ function playround(humanChoice, computerChoice) {
 	else if (computerChoice == "scissors" && humanChoice == "paper")
 		isWinner = false;
 
+	return isWinner;
+}
+
+//takes in human and computer choice and returns string of the winner
+function playRound(humanChoice, computerChoice) {
+	let isTie = false;
+	let winner = "nobody";
+
+	//capitalize the choices first
+	humanChoice = capitalize(humanChoice);
+	computerChoice = capitalize(computerChoice);
+	
+	//print the moves of both sides
+	console.log(`You chose ${humanChoice} and the CPU chose ${computerChoice}`);
+
 	//check tie
 	if (humanChoice === computerChoice)
 		isTie = true;
 	
-	//print losing, winning, or tying message
+	//print tie message
 	if (isTie === true) {
-		console.log("Tie! " + message);
+		console.log(`Tie! Both sides picked ${humanChoice}`);
 	}
-	else if (isWinner === true) {
-		humanScore ++;
+	//print win message
+	else if (didIWin(humanChoice, computerChoice)) {
 		console.log(`You win! ${humanChoice} beats ${computerChoice}`);
+		winner = "human";
+	}
+	//print lose message
+	else {
+		console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+		winner = "computer";
+	}
+	
+	return winner;
+}
+
+function playGame() {
+	//initialize scores
+	let humanScore = 0;
+	let computerScore = 0;
+
+	//play 5 rounds
+	for (let roundNum = 1; roundNum <= 5; roundNum++) {
+		console.log("Round #" + roundNum);
+
+		let humanChoice = getHumanChoice();
+		let computerChoice = getComputerChoice();
+		let winner = playRound(humanChoice, computerChoice);
+
+		//update score based on winner of the round
+		if (winner == "human")
+			humanScore++;
+		else if (winner == "computer")
+			computerScore++;
+
+		//print current score
+		console.log(`Score: ${humanScore}-${computerScore}`);
+	}
+
+	//Determine overall winner
+	if (humanScore > computerScore) {
+		console.log("You won the game!");
+	}
+	else if (humanScore < computerScore) {
+		console.log("You lost the game. Better luck next time!");
 	}
 	else {
-		computerScore ++;
-		console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+		console.log("The game tied!");
 	}
 }
 
-//initialize global scores
-let humanScore = 0;
-let computerScore = 0;
-
-//store variables of human and computer choices
-const humanChoice = getHumanChoice();
-const computerChoice = getComputerChoice();
-
-//begin a round
-playround(humanChoice, computerChoice);
+//start the game
+playGame();
