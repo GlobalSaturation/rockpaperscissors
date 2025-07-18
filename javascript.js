@@ -114,5 +114,13 @@ function playGame() {
 	}
 }
 
+const buttons = document.querySelectorAll("button");
+buttons.forEach((btn) => {
+	//set up event listeners for each button that give thier respective answer
+	btn.addEventListener("click", () => {
+		playRound(btn.innerText, getComputerChoice());
+	});
+})
+
 //start the game
-playGame();
+//playGame();
