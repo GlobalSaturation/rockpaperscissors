@@ -1,0 +1,83 @@
+* {
+	font-family: Arial, sans-serif;
+	color: darkslateblue;
+}
+
+#display {
+	border-radius: 10px;
+	margin: 120px auto 10px auto;
+	font-size: 2rem;
+	text-align: center;
+	padding: 70px 20px;
+	width: 55%;
+	border: 3px solid darkslateblue;
+}
+
+#score {
+	border-radius: 10px;
+	background-color: darkslateblue;
+	width: 55%;
+	padding: 20px;
+	margin: 10px auto;
+	text-align: center;
+	color: white;
+	font-size: 2rem;
+}
+
+#buttons {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+
+button {
+	background-color: lavender;
+	border: 3px solid darkslateblue;
+}
+
+#buttons > button {
+	display: inline-flex;
+	border-radius: 30px;
+	align-items: center;
+	justify-content: center;
+	width: 300px;
+	height: 180px;
+	padding: 20px;
+	font-size: 2rem;
+	transition: filter 0.2s ease-in-out;
+	transition: box-shadow 0.2s ease-in-out;
+	transition: border-width 0.1s ease-in-out;
+}
+
+#buttons > button:hover:not(.disabled) {
+	filter: brightness(90%);
+	/* box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5); */
+	border-width: 5px;
+	cursor: pointer;
+}
+
+button:active {
+	transform: scale(98%);
+}
+
+button>img {
+	width: 50%;
+	margin-right: 20px;
+}
+
+.disabled {
+	filter: brightness(60%);
+}
+
+#retry {
+	margin: auto;
+	display: block;
+	width: 20%;
+	padding: 10px;
+	font-size: 1.2rem;
+}
+
+#retry:hover {
+	filter: brightness(90%);
+	cursor: pointer;
+}

@@ -90,6 +90,7 @@ function updateScore(winner) {
 function createRetryButton() {
 	const body = document.querySelector("body");
 	const retryBtn = document.createElement("button");
+	retryBtn.setAttribute("id", "retry");
 	retryBtn.innerText = "Retry";
 
 	retryBtn.addEventListener("click", () => {
